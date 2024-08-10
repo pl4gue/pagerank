@@ -1,7 +1,10 @@
 from pyvis.network import Network
 from random import choice
 
-def page_rank(adj_matrix: list[list[int]], iter: int = 1, damp_factor: float = 0.85) -> list[float]:
+
+def page_rank(
+    adj_matrix: list[list[int]], iter: int = 1, damp_factor: float = 0.85
+) -> list[float]:
     """
     Calculates the rank of each page on the given adjacency matrix.
 
@@ -30,16 +33,20 @@ def page_rank(adj_matrix: list[list[int]], iter: int = 1, damp_factor: float = 0
                     continue
 
                 new_pagerank[i] += (
-                    damp_factor * normal_value(adj_matrix[j][i], sum(adj_matrix[j])) * pagerank[j]
+                    damp_factor
+                    * average_or_zero(pagerank[j], sum(adj_matrix[j]))
+                    * adj_matrix[j][i]
                 )
 
         pagerank = new_pagerank
 
     return pagerank
 
+
 # Divisions by zero return 0 in this algorithm
-def normal_value(m: int, s: int) -> float:
+def average_or_zero(m: int | float, s: int) -> float:
     return 0 if s == 0 else m / s
+
 
 # Generates a random matrix
 def generate_matrix(n: int) -> list[list[int]]:
@@ -54,7 +61,7 @@ if __name__ == "__main__":
     #     [0, 1, 0],
     #     [1, 0, 1],
     #     [1, 0, 0],
-    #]
+    # ]
 
     matrix = generate_matrix(5)
 

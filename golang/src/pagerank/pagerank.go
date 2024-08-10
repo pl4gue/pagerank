@@ -32,7 +32,7 @@ func RankPages[T numbers.Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, 
 
 	// Normalizes the value.
 	// Returns 0 when dividing by zero
-	normal_value := numbers.Divide[T]
+	average_or_zero := numbers.Divide[T]
 
 	t_n := T(n)
 
@@ -49,7 +49,9 @@ func RankPages[T numbers.Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, 
 					continue
 				}
 
-				new_pagerank[i] += damp_factor * normal_value(adj_matrix[j][i], numbers.Sum(adj_matrix[j]...)) * pagerank[j]
+				new_pagerank[i] += adj_matrix[j][i] *
+					average_or_zero(pagerank[j], numbers.Sum(adj_matrix[j]...)) *
+					damp_factor
 			}
 		}
 
