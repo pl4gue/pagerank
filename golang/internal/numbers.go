@@ -1,4 +1,4 @@
-package numbers
+package pagerank
 
 // Every signed integer number type
 type Signed interface {

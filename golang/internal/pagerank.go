@@ -2,8 +2,6 @@ package pagerank
 
 import (
 	"errors"
-
-	numbers "github.com/pl4gue/pagerank/golang/src/numbers"
 )
 
 /*
@@ -22,7 +20,7 @@ Returns:
 	error:              Returns in case the matrix lenght is 0
 */
 
-func RankPages[T numbers.Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, error) {
+func RankPages[T Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, error) {
 	// Node count
 	n := len(adj_matrix)
 
@@ -32,7 +30,7 @@ func RankPages[T numbers.Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, 
 
 	// Normalizes the value.
 	// Returns 0 when dividing by zero
-	average_or_zero := numbers.Divide[T]
+	average_or_zero := Divide[T]
 
 	t_n := T(n)
 
@@ -50,7 +48,7 @@ func RankPages[T numbers.Real](adj_matrix [][]T, iter int, damp_factor T) ([]T, 
 				}
 
 				new_pagerank[i] += adj_matrix[j][i] *
-					average_or_zero(pagerank[j], numbers.Sum(adj_matrix[j]...)) *
+					average_or_zero(pagerank[j], Sum(adj_matrix[j]...)) *
 					damp_factor
 			}
 		}
