@@ -65,8 +65,5 @@ for _ in range(iterations):
   - Run by using
     ```sh
     cd golang/
-    go build
-    ./main
-    # or
     go run .
     ```
